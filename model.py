@@ -1,9 +1,16 @@
 import tensorflow as tf
 import keras_tuner as kt
 
+
 class CNNHyperModel(kt.HyperModel):
     def build(self, hp):
         model = tf.keras.models.Sequential()
+
+        model.add(tf.keras.layers.RandomFlip())
+        model.add(tf.keras.layers.RandomRotation(0.2))
+        model.add(tf.keras.layers.RandomZoom((-0.2, 0.2)))
+        model.add(tf.keras.layers.RandomTranslation(0.1, 0.1))
+        model.add(tf.keras.layers.RandomContrast(0.2))
 
         for i in range(hp.Int("num_conv_layers", 1, 6)):
             model.add(
@@ -61,11 +68,17 @@ class CNNHyperModel(kt.HyperModel):
         model.compile(
             optimizer=tf.keras.optimizers.Adam(
                 learning_rate=hp.Float(
-                    "learning_rate", min_value=1e-5, max_value=1e-2, sampling="log"
+                    "learning_rate",
+                    min_value=1e-5,
+                    max_value=1e-2,
+                    step=10,
+                    sampling="log",
                 )
             ),
             loss="binary_crossentropy",
-            metrics=["accuracy"],
+            metrics=[
+                "accuracy",
+            ],
         )
 
         return model
