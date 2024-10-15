@@ -141,7 +141,7 @@ def evaluate_model(
         test_data (tf.data.Dataset): Preprocessed test data.
 
     Returns:
-        tuple [float, float, float, float, float]: A tuple containing:
+        tuple[float, float, float, float, float]: A tuple containing:
             test_loss (float): The loss on the test dataset.
             test_accuracy (float): The accuracy on the test dataset.
             test_precision (float): The precision on the test dataset.

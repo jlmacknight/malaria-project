@@ -3,7 +3,28 @@ import keras_tuner as kt
 
 
 class CNNHyperModel(kt.HyperModel):
-    def build(self, hp):
+    """
+    HyperModel subclass defining the structure of the CNN and hyperparameters for tuning.
+
+    Attributes:
+        None
+
+    Method:
+        build(hp: keras_tuner.HyperParameters) -> tf.keras.Model:
+            Build and return a CNN model with the hyperparameter configurations defined.
+    """
+
+    def build(self, hp) -> tf.keras.Model:
+        """
+        Constructs a CNN based on the hyperparameter configuration.
+
+        Parameters:
+            hp (keras_tuner.HyperParameters): Object containing hyperparamter space and current
+            values.
+
+        Returns:
+            tf.keras.Model: A compiled model instance.
+        """
         model = tf.keras.models.Sequential()
 
         model.add(tf.keras.layers.RandomFlip())
